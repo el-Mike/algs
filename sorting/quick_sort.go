@@ -13,6 +13,48 @@ func QuickSort(slice []int, l int, r int) []int {
 	return slice
 }
 
+func IterativeQuickSort(slice []int) []int {
+	l := 0
+	h := len(slice) - 1
+
+	stack := make([]int, h-1+1)
+	top := -1
+
+	top++
+	stack[top] = l
+
+	top++
+	stack[top] = h
+
+	for top >= 0 {
+		h = stack[top]
+		top--
+
+		l = stack[top]
+		top--
+
+		pivot := partition(slice, l, h)
+
+		if (pivot - 1) > l {
+			top++
+			stack[top] = l
+
+			top++
+			stack[top] = pivot - 1
+		}
+
+		if (pivot + 1) < h {
+			top++
+			stack[top] = pivot + 1
+
+			top++
+			stack[top] = h
+		}
+	}
+
+	return slice
+}
+
 func partition(slice []int, l int, r int) int {
 	pivot := slice[r]
 	i := l - 1

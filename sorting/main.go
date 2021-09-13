@@ -20,6 +20,7 @@ func main() {
 	printResult("MergeSort", MergeSort(GetReadableTestDataCopy()))
 	printResult("MergeSort2", MergeSort2(GetReadableTestDataCopy(), 0, len(ReadableTestData)-1))
 	printResult("QuickSort", QuickSort(GetReadableTestDataCopy(), 0, len(ReadableTestData)-1))
+	printResult("IterativeQuickSort", IterativeQuickSort(GetReadableTestDataCopy()))
 }
 
 func printResult(name string, result []int) {
