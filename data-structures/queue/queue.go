@@ -1,12 +1,7 @@
 package queue
 
 import (
-	"errors"
 	"sync"
-)
-
-const (
-	QUEUE_EMPTY_ERROR = "Queue is empty!"
 )
 
 type Queue struct {
@@ -23,7 +18,7 @@ func NewQueue() *Queue {
 	}
 }
 
-// Enqueue - ads an element to the end of the Queue.
+// Enqueue - adds an element to the end of the Queue.
 func (q *Queue) Enqueue(value int) {
 	q.Lock()
 	defer q.Unlock()
@@ -39,7 +34,7 @@ func (q *Queue) Dequeue() (int, error) {
 	l := len(q.data)
 
 	if l == 0 {
-		return 0, errors.New(QUEUE_EMPTY_ERROR)
+		return 0, NewQueueEmptyError()
 	}
 
 	value := q.data[0]
@@ -63,7 +58,7 @@ func (q *Queue) Peek() (int, error) {
 	l := len(q.data)
 
 	if l == 0 {
-		return 0, errors.New(QUEUE_EMPTY_ERROR)
+		return 0, NewQueueEmptyError()
 	}
 
 	return q.data[0], nil
