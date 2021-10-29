@@ -17,7 +17,7 @@ func IterativeQuickSort(slice []int) []int {
 	l := 0
 	h := len(slice) - 1
 
-	stack := make([]int, h-1+1)
+	stack := make([]int, h-l+1)
 	top := -1
 
 	top++

@@ -15,6 +15,10 @@ You can run `go test --bench .` in `sorting/` directory, to get the performance 
 ## Sets
 
 * [0-1 Knapsack](https://github.com/el-Mike/algs/blob/master/sets/knapsack.go)
+
+## Data structures
+
+* [Stack](https://github.com/el-Mike/algs/blob/master/data-structures/stack/stack.go)
 ## Data structures algorithms
 
 * [Array Rotation](https://github.com/el-Mike/algs/blob/master/data-structures/array/rotation.go)
