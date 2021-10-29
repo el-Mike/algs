@@ -21,6 +21,7 @@ You can run `go test --bench .` in `sorting/` directory, to get the performance 
 * [Stack](https://github.com/el-Mike/algs/blob/master/data-structures/stack/stack.go)
 * [Queue](https://github.com/el-Mike/algs/blob/master/data-structures/queue/queue.go)
 * [Circular Queue](https://github.com/el-Mike/algs/blob/master/data-structures/queue/circular_queue.go)
+* [Linked List](https://github.com/el-Mike/algs/blob/master/data-structures/list/linked_list.go)
 ## Data structures algorithms
 
 * [Array Rotation](https://github.com/el-Mike/algs/blob/master/data-structures/array/rotation.go)
