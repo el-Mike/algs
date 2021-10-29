@@ -1,4 +1,4 @@
-package main
+package sorting
 
 func MergeSort(slice []int) []int {
 	if len(slice) <= 1 {

@@ -1,4 +1,4 @@
-package main
+package sorting
 
 func InsertionSort(slice []int) []int {
 	for i := 1; i < len(slice); i += 1 {

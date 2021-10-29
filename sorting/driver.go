@@ -1,4 +1,4 @@
-package main
+package sorting
 
 import (
 	"fmt"
@@ -8,7 +8,7 @@ const (
 	LOG_SEPARATOR = "============================"
 )
 
-func main() {
+func Run() {
 	printResult("Input data", GetReadableTestDataCopy())
 
 	printResult("BubbleSort", BubbleSort(GetReadableTestDataCopy()))

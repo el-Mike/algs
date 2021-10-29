@@ -1,4 +1,4 @@
-package main
+package datastructures
 
 import (
 	"fmt"
@@ -10,7 +10,7 @@ const (
 	LOG_SEPARATOR = "--------------------------------------------"
 )
 
-func main() {
+func Run() {
 	array.RunOpeations()
 
 	printSeparator()
