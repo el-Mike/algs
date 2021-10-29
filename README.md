@@ -12,10 +12,9 @@ You can run `go test --bench .` in `sorting/` directory, to get the performance 
 * [Merge Sort](https://github.com/el-Mike/algs/blob/master/sorting/merge_sort.go)
 * [Quick Sort](https://github.com/el-Mike/algs/blob/master/sorting/quick_sort.go)
 
-## Data structures algorithms
-
-* [Array Rotation](https://github.com/el-Mike/algs/blob/master/data-structures/array/rotation.go)
-
 ## Sets
 
 * [0-1 Knapsack](https://github.com/el-Mike/algs/blob/master/sets/knapsack.go)
+## Data structures algorithms
+
+* [Array Rotation](https://github.com/el-Mike/algs/blob/master/data-structures/array/rotation.go)
