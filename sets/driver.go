@@ -7,7 +7,7 @@ const (
 )
 
 func Run() {
-
+	Knapsack01(GetKnapsackDataCopy(Knapsack01TinyTestData), 8)
 	printSeparator()
 }
 

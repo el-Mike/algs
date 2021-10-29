@@ -1,3 +1,10 @@
 package sets
 
-func Knapsack() {}
+type Subject struct {
+	Value  int
+	Weight int
+}
+
+func Knapsack01(subjects []Subject, capacity int) {
+
+}

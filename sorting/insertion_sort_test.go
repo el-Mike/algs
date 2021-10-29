@@ -13,10 +13,10 @@ func benchmarkInsertionSort(dataProvider func() []int, b *testing.B) {
 }
 
 func BenchmarkInsertionSortSmall(b *testing.B) {
-	benchmarkInsertionSort(GetSmallTestDataCopy, b)
+	benchmarkInsertionSort(TestDataProviderFactory(SmallTestData), b)
 }
 func BenchmarkInsertionSortBig(b *testing.B) {
-	benchmarkInsertionSort(GetTestDataCopy, b)
+	benchmarkInsertionSort(TestDataProviderFactory(TestData), b)
 }
 
 // ================================
@@ -32,7 +32,7 @@ func benchmarkRecursiveInsertionSort(dataProvider func() []int, b *testing.B) {
 }
 
 // func BenchmarkRecursiveInsertionSortSmall(b *testing.B) {
-// 	benchmarkRecursiveInsertionSort(GetSmallTestDataCopy, b)
+// 	benchmarkRecursiveInsertionSort(GetTestDataCopy(SmallTestData), b)
 // }
 
 // func BenchmarkRecursiveInsertionSortBig(b *testing.B) {

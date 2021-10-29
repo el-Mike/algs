@@ -13,10 +13,10 @@ func benchmarkBubbleSort(dataProvider func() []int, b *testing.B) {
 }
 
 func BenchmarkBubbleSortSmall(b *testing.B) {
-	benchmarkBubbleSort(GetSmallTestDataCopy, b)
+	benchmarkBubbleSort(TestDataProviderFactory(SmallTestData), b)
 }
 func BenchmarkBubbleSortBig(b *testing.B) {
-	benchmarkBubbleSort(GetTestDataCopy, b)
+	benchmarkBubbleSort(TestDataProviderFactory(TestData), b)
 }
 
 // =============================================

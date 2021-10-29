@@ -13,11 +13,11 @@ func benchmarkQuickSort(dataProvider func() []int, b *testing.B) {
 }
 
 func BenchmarkQuickSortSmall(b *testing.B) {
-	benchmarkQuickSort(GetSmallTestDataCopy, b)
+	benchmarkQuickSort(TestDataProviderFactory(SmallTestData), b)
 }
 
 func BenchmarkQuickSortBig(b *testing.B) {
-	benchmarkQuickSort(GetTestDataCopy, b)
+	benchmarkQuickSort(TestDataProviderFactory(TestData), b)
 }
 
 func benchmarkIterativeQuickSort(dataProvider func() []int, b *testing.B) {
@@ -31,9 +31,9 @@ func benchmarkIterativeQuickSort(dataProvider func() []int, b *testing.B) {
 }
 
 func BenchmarkIterativeQuickSortSmall(b *testing.B) {
-	benchmarkIterativeQuickSort(GetSmallTestDataCopy, b)
+	benchmarkIterativeQuickSort(TestDataProviderFactory(SmallTestData), b)
 }
 
 func BenchmarkIterativeQuickSortBig(b *testing.B) {
-	benchmarkIterativeQuickSort(GetTestDataCopy, b)
+	benchmarkIterativeQuickSort(TestDataProviderFactory(TestData), b)
 }

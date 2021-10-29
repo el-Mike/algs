@@ -13,9 +13,9 @@ func benchmarkSelectionSort(dataProvider func() []int, b *testing.B) {
 }
 
 func BenchmarkSelectionSortSmall(b *testing.B) {
-	benchmarkSelectionSort(GetSmallTestDataCopy, b)
+	benchmarkSelectionSort(TestDataProviderFactory(SmallTestData), b)
 }
 
 func BenchmarkSelectionSortBig(b *testing.B) {
-	benchmarkSelectionSort(GetTestDataCopy, b)
+	benchmarkSelectionSort(TestDataProviderFactory(TestData), b)
 }

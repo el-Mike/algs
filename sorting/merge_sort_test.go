@@ -13,11 +13,11 @@ func benchmarkMergeSort(dataProvider func() []int, b *testing.B) {
 }
 
 func BenchmarkMergeSortSmall(b *testing.B) {
-	benchmarkMergeSort(GetSmallTestDataCopy, b)
+	benchmarkMergeSort(TestDataProviderFactory(SmallTestData), b)
 }
 
 func BenchmarkMergeSortBig(b *testing.B) {
-	benchmarkMergeSort(GetTestDataCopy, b)
+	benchmarkMergeSort(TestDataProviderFactory(TestData), b)
 }
 
 // =============================================
@@ -33,7 +33,7 @@ func benchmarkMergeSort2(dataProvider func() []int, b *testing.B) {
 }
 
 // func BenchmarkMergeSort2Small(b *testing.B) {
-// 	benchmarkMergeSort2(GetSmallTestDataCopy, b)
+// 	benchmarkMergeSort2(GetTestDataCopy(SmallTestData), b)
 // }
 
 // func BenchmarkMergeSort2Big(b *testing.B) {
@@ -53,7 +53,7 @@ func benchmarkMergeSortFromNet(dataProvider func() []int, b *testing.B) {
 }
 
 // func BenchmarkMergeSortFromNetSmall(b *testing.B) {
-// 	benchmarkMergeSortFromNet(GetSmallTestDataCopy, b)
+// 	benchmarkMergeSortFromNet(GetTestDataCopy(SmallTestData), b)
 // }
 
 // func BenchmarkMergeSortFromNetBig(b *testing.B) {
