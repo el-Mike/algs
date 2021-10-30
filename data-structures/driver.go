@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"github.com/el-Mike/algs/data-structures/array"
+	"github.com/el-Mike/algs/data-structures/list"
 )
 
 const (
@@ -14,6 +15,8 @@ func Run() {
 	array.RunOpeations()
 
 	printSeparator()
+
+	list.RunLinkedList()
 }
 
 func printSeparator() {

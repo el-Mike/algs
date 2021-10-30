@@ -1,6 +1,9 @@
 package list
 
-import "sync"
+import (
+	"fmt"
+	"sync"
+)
 
 type ForEachCallback func(node *Node)
 type FindCallback func(node *Node) bool
@@ -94,11 +97,67 @@ func (l *LinkedList) Append(value int) {
 
 	if lastNode != nil {
 		lastNode.Lock()
-
 		lastNode.next = newNode
-
 		lastNode.Unlock()
+	} else {
+		l.Lock()
+		l.head = newNode
+		l.Unlock()
 	}
+}
+
+// GetAt - returns an element at specified position.
+func (l *LinkedList) GetAt(position int) *Node {
+	current := l.head
+
+	for i := 0; i <= position; i += 1 {
+		if current == nil {
+			return nil
+		}
+
+		if i == position {
+			return current
+		}
+
+		current = current.next
+	}
+
+	return nil
+}
+
+// InsertAt - adds an element at specified position.
+func (l *LinkedList) InsertAt(value, position int) {
+	newNode := NewNode(value, nil)
+
+	current := l.head
+
+	// i == 1 works as a offset - we want to get the Node before the
+	// insert position, therefore we "subtract" one iteration.
+	for i := 1; i < position; i += 1 {
+		if current == nil {
+			return
+		}
+
+		current = current.next
+	}
+
+	newNode.next = current.next
+	current.next = newNode
+}
+
+//  DeleteAt - removes an element at given position from LinkedList.
+func (l *LinkedList) DeleteAt(position int) {
+	current := l.head
+
+	for i := 1; i < position; i += 1 {
+		if current == nil {
+			return
+		}
+
+		current = current.next
+	}
+
+	current.next = current.next.next
 }
 
 // RemoveFirst - removes first element from LinkedList.
@@ -129,6 +188,37 @@ func (l *LinkedList) RemoveLast() {
 	}
 }
 
+// Sort - sorts LinkedList by Nodes' values. Uses BubbleSort approach.
+func (l *LinkedList) Sort() {
+	current := l.head
+
+	if current == nil {
+		return
+	}
+
+	var index *Node
+
+	for current != nil {
+		index = current.next
+
+		for index != nil {
+			if current.data > index.data {
+				current.Lock()
+				index.Lock()
+
+				current.data, index.data = index.data, current.data
+
+				current.Unlock()
+				index.Unlock()
+			}
+
+			index = index.next
+		}
+
+		current = current.next
+	}
+}
+
 // Size - returns the length of the list.
 func (l *LinkedList) Size() int {
 	i := 0
@@ -138,4 +228,29 @@ func (l *LinkedList) Size() int {
 	})
 
 	return i
+}
+
+// Print - prints LinkedList's Nodes values as an array.
+func (l *LinkedList) Print() {
+	var listData []int
+
+	l.ForEach(func(node *Node) {
+		listData = append(listData, node.data)
+	})
+
+	fmt.Printf("%v\n", listData)
+}
+
+func RunLinkedList() {
+	list := NewLinkedList(nil)
+
+	testData := GetTestDataCopy()
+
+	for _, x := range testData {
+		list.Append(x)
+	}
+
+	list.Print()
+	list.Sort()
+	list.Print()
 }

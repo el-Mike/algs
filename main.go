@@ -1,11 +1,9 @@
 package main
 
-import (
-	"github.com/el-Mike/algs/sets"
-)
+import datastructures "github.com/el-Mike/algs/data-structures"
 
 func main() {
 	// sorting.Run()
-	// datastructures.Run()
-	sets.Run()
+	datastructures.Run()
+	// sets.Run()
 }
