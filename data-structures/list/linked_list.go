@@ -7,21 +7,7 @@ import (
 
 type ForEachCallback func(node *Node)
 type FindCallback func(node *Node) bool
-
-type Node struct {
-	// Makes linked list implementation thread-safe.
-	sync.RWMutex
-
-	data int
-	next *Node
-}
-
-func NewNode(value int, next *Node) *Node {
-	return &Node{
-		data: value,
-		next: next,
-	}
-}
+type Comparator func(a, b *Node) bool
 
 type LinkedList struct {
 	// Makes linked list implementation thread-safe.
@@ -45,13 +31,9 @@ func (l *LinkedList) ForEach(cb ForEachCallback) {
 	current := l.head
 
 	for current != nil {
-		current.Lock()
-
 		cb(current)
 
-		current.Unlock()
-
-		current = current.next
+		current = current.Next
 	}
 }
 
@@ -61,43 +43,39 @@ func (l *LinkedList) Find(cb FindCallback) *Node {
 	current := l.head
 
 	for current != nil {
-		current.Lock()
-
 		found := cb(current)
-
-		current.Unlock()
 
 		if found {
 			return current
 		}
 
-		current = current.next
+		current = current.Next
 	}
 
 	return nil
 }
 
 // Prepend - adds an element to the beginning of LinkedList, making it the new head.
-func (l *LinkedList) Prepend(value int) {
+func (l *LinkedList) Prepend(data interface{}) {
 	l.Lock()
 	defer l.Unlock()
 
-	newNode := NewNode(value, l.head)
+	newNode := NewNode(data, l.head)
 
 	l.head = newNode
 }
 
 // Append - adds an element at the end of LinkedList.
-func (l *LinkedList) Append(value int) {
-	newNode := NewNode(value, nil)
+func (l *LinkedList) Append(data interface{}) {
+	newNode := NewNode(data, nil)
 
 	lastNode := l.Find(func(node *Node) bool {
-		return node.next == nil
+		return node.Next == nil
 	})
 
 	if lastNode != nil {
 		lastNode.Lock()
-		lastNode.next = newNode
+		lastNode.Next = newNode
 		lastNode.Unlock()
 	} else {
 		l.Lock()
@@ -119,15 +97,15 @@ func (l *LinkedList) GetAt(position int) *Node {
 			return current
 		}
 
-		current = current.next
+		current = current.Next
 	}
 
 	return nil
 }
 
 // InsertAt - adds an element at specified position.
-func (l *LinkedList) InsertAt(value, position int) {
-	newNode := NewNode(value, nil)
+func (l *LinkedList) InsertAt(data interface{}, position int) {
+	newNode := NewNode(data, nil)
 
 	current := l.head
 
@@ -138,11 +116,11 @@ func (l *LinkedList) InsertAt(value, position int) {
 			return
 		}
 
-		current = current.next
+		current = current.Next
 	}
 
-	newNode.next = current.next
-	current.next = newNode
+	newNode.Next = current.Next
+	current.Next = newNode
 }
 
 //  DeleteAt - removes an element at given position from LinkedList.
@@ -154,10 +132,10 @@ func (l *LinkedList) DeleteAt(position int) {
 			return
 		}
 
-		current = current.next
+		current = current.Next
 	}
 
-	current.next = current.next.next
+	current.Next = current.Next.Next
 }
 
 // RemoveFirst - removes first element from LinkedList.
@@ -166,7 +144,7 @@ func (l *LinkedList) RemoveFirst() {
 	defer l.Unlock()
 
 	if l.head != nil {
-		l.head = l.head.next
+		l.head = l.head.Next
 	}
 }
 
@@ -176,20 +154,20 @@ func (l *LinkedList) RemoveLast() {
 	defer l.Unlock()
 
 	secondLastNode := l.Find(func(node *Node) bool {
-		return node.next.next == nil
+		return node.Next.Next == nil
 	})
 
 	if secondLastNode != nil {
 		secondLastNode.Lock()
 
-		secondLastNode.next = nil
+		secondLastNode.Next = nil
 
 		secondLastNode.Unlock()
 	}
 }
 
 // Sort - sorts LinkedList by Nodes' values. Uses BubbleSort approach.
-func (l *LinkedList) Sort() {
+func (l *LinkedList) Sort(comparator Comparator) {
 	current := l.head
 
 	if current == nil {
@@ -199,23 +177,23 @@ func (l *LinkedList) Sort() {
 	var index *Node
 
 	for current != nil {
-		index = current.next
+		index = current.Next
 
 		for index != nil {
-			if current.data > index.data {
+			if comparator(current, index) {
 				current.Lock()
 				index.Lock()
 
-				current.data, index.data = index.data, current.data
+				current.Data, index.Data = index.Data, current.Data
 
 				current.Unlock()
 				index.Unlock()
 			}
 
-			index = index.next
+			index = index.Next
 		}
 
-		current = current.next
+		current = current.Next
 	}
 }
 
@@ -235,7 +213,7 @@ func (l *LinkedList) Print() {
 	var listData []int
 
 	l.ForEach(func(node *Node) {
-		listData = append(listData, node.data)
+		listData = append(listData, node.Data.(int))
 	})
 
 	fmt.Printf("%v\n", listData)
@@ -251,6 +229,8 @@ func RunLinkedList() {
 	}
 
 	list.Print()
-	list.Sort()
+	list.Sort(func(a, b *Node) bool {
+		return a.Data.(int) > b.Data.(int)
+	})
 	list.Print()
 }

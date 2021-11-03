@@ -28,12 +28,12 @@ func TestLinkedList_InsertAt(t *testing.T) {
 	list.Append(4)
 
 	assert.Equal(t, 4, list.Size())
-	assert.Equal(t, 3, list.GetAt(2).data)
+	assert.Equal(t, 3, list.GetAt(2).Data)
 
 	list.InsertAt(5, 2)
 
 	assert.Equal(t, 5, list.Size())
-	assert.Equal(t, 5, list.GetAt(2).data)
+	assert.Equal(t, 5, list.GetAt(2).Data)
 }
 
 func TestLinkedList_DeleteAt(t *testing.T) {
@@ -46,10 +46,10 @@ func TestLinkedList_DeleteAt(t *testing.T) {
 	list.Append(4)
 
 	assert.Equal(t, 4, list.Size())
-	assert.Equal(t, 3, list.GetAt(2).data)
+	assert.Equal(t, 3, list.GetAt(2).Data)
 
 	list.DeleteAt(2)
 
 	assert.Equal(t, 3, list.Size())
-	assert.Equal(t, 4, list.GetAt(2).data)
+	assert.Equal(t, 4, list.GetAt(2).Data)
 }
