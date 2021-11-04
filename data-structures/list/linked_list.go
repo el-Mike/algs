@@ -9,6 +9,21 @@ type ForEachCallback func(node *Node)
 type FindCallback func(node *Node) bool
 type Comparator func(a, b *Node) bool
 
+type Node struct {
+	// Makes linked list implementation thread-safe.
+	sync.RWMutex
+
+	Data interface{}
+	Next *Node
+}
+
+func NewNode(data interface{}, next *Node) *Node {
+	return &Node{
+		Data: data,
+		Next: next,
+	}
+}
+
 type LinkedList struct {
 	// Makes linked list implementation thread-safe.
 	sync.RWMutex
