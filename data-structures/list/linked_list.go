@@ -3,6 +3,8 @@ package list
 import (
 	"fmt"
 	"sync"
+
+	testdata "github.com/el-Mike/algs/data-structures/test_data"
 )
 
 type ForEachCallback func(node *Node)
@@ -236,7 +238,7 @@ func (l *LinkedList) Print(printer NodePrinter) {
 func RunLinkedList() {
 	list := NewLinkedList(nil)
 
-	testData := GetTestDataCopy()
+	testData := testdata.GetSmallTestDataCopy()
 
 	for _, x := range testData {
 		list.Append(x)

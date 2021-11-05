@@ -1,6 +1,10 @@
 package array
 
-import "fmt"
+import (
+	"fmt"
+
+	testdata "github.com/el-Mike/algs/data-structures/test_data"
+)
 
 func RunOpeations() {
 	rotations()
@@ -11,7 +15,7 @@ const (
 )
 
 func rotations() {
-	data := GetSmallTestDataCopy()
+	data := testdata.GetSmallTestDataCopy()
 	printArray("Input data", data)
 
 	result := LeftRotate(data, 2)
@@ -19,7 +23,7 @@ func rotations() {
 
 	printSeparator()
 
-	data = GetSmallTestDataCopy()
+	data = testdata.GetSmallTestDataCopy()
 	printArray("Input data", data)
 
 	result = LeftRotateByOne(data)

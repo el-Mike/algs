@@ -5,6 +5,7 @@ import (
 	"sync"
 
 	"github.com/el-Mike/algs/data-structures/list"
+	testdata "github.com/el-Mike/algs/data-structures/test_data"
 )
 
 type HashtableItem struct {
@@ -142,7 +143,7 @@ func (h *ChainingHashtable) castHashtableItem(data interface{}) *HashtableItem {
 func RunChainingHashtable() {
 	hashtable := NewHashtable(10, KNUTH_MULTIPLICATION_HASHING)
 
-	testData := GetTestDataCopy()
+	testData := testdata.GetTestDataCopy()
 
 	for i, x := range testData {
 		hashtable.Insert((x + i + 10), x)
