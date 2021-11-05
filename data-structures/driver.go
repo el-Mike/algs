@@ -3,9 +3,7 @@ package datastructures
 import (
 	"fmt"
 
-	"github.com/el-Mike/algs/data-structures/array"
 	"github.com/el-Mike/algs/data-structures/hashtable"
-	"github.com/el-Mike/algs/data-structures/list"
 )
 
 const (
@@ -13,11 +11,11 @@ const (
 )
 
 func Run() {
-	array.RunOpeations()
+	// array.RunOpeations()
 
 	printSeparator()
 
-	list.RunLinkedList()
+	// list.RunLinkedList()
 
 	printSeparator()
 

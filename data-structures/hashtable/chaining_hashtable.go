@@ -140,9 +140,9 @@ func (h *ChainingHashtable) castHashtableItem(data interface{}) *HashtableItem {
 }
 
 func RunChainingHashtable() {
-	hashtable := NewHashtable(10, MOD_HASHING)
+	hashtable := NewHashtable(10, KNUTH_MULTIPLICATION_HASHING)
 
-	testData := GetSmallTestDataCopy()
+	testData := GetTestDataCopy()
 
 	for i, x := range testData {
 		hashtable.Insert((x + i + 10), x)
