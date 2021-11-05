@@ -8,6 +8,7 @@ import (
 type ForEachCallback func(node *Node)
 type FindCallback func(node *Node) bool
 type Comparator func(a, b *Node) bool
+type NodePrinter func(node *Node)
 
 type Node struct {
 	// Makes linked list implementation thread-safe.
@@ -28,22 +29,22 @@ type LinkedList struct {
 	// Makes linked list implementation thread-safe.
 	sync.RWMutex
 
-	head *Node
+	Head *Node
 }
 
 func NewLinkedList(node *Node) *LinkedList {
 	return &LinkedList{
-		head: node,
+		Head: node,
 	}
 }
 
 // ForEach - iterates over the LinkedList, calling passed callback for every node.
 func (l *LinkedList) ForEach(cb ForEachCallback) {
-	if l.head == nil {
+	if l.Head == nil {
 		return
 	}
 
-	current := l.head
+	current := l.Head
 
 	for current != nil {
 		cb(current)
@@ -55,7 +56,7 @@ func (l *LinkedList) ForEach(cb ForEachCallback) {
 // Find - iterates over the LinkedList, and returns the Node that passed callback returns
 // true for. If no such Node is found, nil is returned.
 func (l *LinkedList) Find(cb FindCallback) *Node {
-	current := l.head
+	current := l.Head
 
 	for current != nil {
 		found := cb(current)
@@ -75,9 +76,9 @@ func (l *LinkedList) Prepend(data interface{}) {
 	l.Lock()
 	defer l.Unlock()
 
-	newNode := NewNode(data, l.head)
+	newNode := NewNode(data, l.Head)
 
-	l.head = newNode
+	l.Head = newNode
 }
 
 // Append - adds an element at the end of LinkedList.
@@ -94,14 +95,14 @@ func (l *LinkedList) Append(data interface{}) {
 		lastNode.Unlock()
 	} else {
 		l.Lock()
-		l.head = newNode
+		l.Head = newNode
 		l.Unlock()
 	}
 }
 
 // GetAt - returns an element at specified position.
 func (l *LinkedList) GetAt(position int) *Node {
-	current := l.head
+	current := l.Head
 
 	for i := 0; i <= position; i += 1 {
 		if current == nil {
@@ -122,7 +123,7 @@ func (l *LinkedList) GetAt(position int) *Node {
 func (l *LinkedList) InsertAt(data interface{}, position int) {
 	newNode := NewNode(data, nil)
 
-	current := l.head
+	current := l.Head
 
 	// i == 1 works as a offset - we want to get the Node before the
 	// insert position, therefore we "subtract" one iteration.
@@ -139,8 +140,8 @@ func (l *LinkedList) InsertAt(data interface{}, position int) {
 }
 
 //  DeleteAt - removes an element at given position from LinkedList.
-func (l *LinkedList) DeleteAt(position int) {
-	current := l.head
+func (l *LinkedList) RemoveAt(position int) {
+	current := l.Head
 
 	for i := 1; i < position; i += 1 {
 		if current == nil {
@@ -158,8 +159,8 @@ func (l *LinkedList) RemoveFirst() {
 	l.Lock()
 	defer l.Unlock()
 
-	if l.head != nil {
-		l.head = l.head.Next
+	if l.Head != nil {
+		l.Head = l.Head.Next
 	}
 }
 
@@ -183,7 +184,7 @@ func (l *LinkedList) RemoveLast() {
 
 // Sort - sorts LinkedList by Nodes' values. Uses BubbleSort approach.
 func (l *LinkedList) Sort(comparator Comparator) {
-	current := l.head
+	current := l.Head
 
 	if current == nil {
 		return
@@ -224,14 +225,12 @@ func (l *LinkedList) Size() int {
 }
 
 // Print - prints LinkedList's Nodes values as an array.
-func (l *LinkedList) Print() {
-	var listData []int
-
+func (l *LinkedList) Print(printer NodePrinter) {
 	l.ForEach(func(node *Node) {
-		listData = append(listData, node.Data.(int))
+		printer(node)
 	})
 
-	fmt.Printf("%v\n", listData)
+	fmt.Printf("\n")
 }
 
 func RunLinkedList() {
@@ -243,9 +242,13 @@ func RunLinkedList() {
 		list.Append(x)
 	}
 
-	list.Print()
+	list.Print(printNode)
 	list.Sort(func(a, b *Node) bool {
 		return a.Data.(int) > b.Data.(int)
 	})
-	list.Print()
+	list.Print(printNode)
+}
+
+func printNode(node *Node) {
+	fmt.Printf("%v, ", node.Data.(int))
 }

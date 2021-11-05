@@ -48,7 +48,7 @@ func TestLinkedList_DeleteAt(t *testing.T) {
 	assert.Equal(t, 4, list.Size())
 	assert.Equal(t, 3, list.GetAt(2).Data)
 
-	list.DeleteAt(2)
+	list.RemoveAt(2)
 
 	assert.Equal(t, 3, list.Size())
 	assert.Equal(t, 4, list.GetAt(2).Data)

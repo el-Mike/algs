@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"github.com/el-Mike/algs/data-structures/array"
+	"github.com/el-Mike/algs/data-structures/hashtable"
 	"github.com/el-Mike/algs/data-structures/list"
 )
 
@@ -17,6 +18,10 @@ func Run() {
 	printSeparator()
 
 	list.RunLinkedList()
+
+	printSeparator()
+
+	hashtable.RunChainingHashtable()
 }
 
 func printSeparator() {
